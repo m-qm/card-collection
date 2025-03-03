@@ -21,6 +21,10 @@ export const updateCollectionName = (collectionId: string, newName: string) => (
   dispatch({ type: 'UPDATE_COLLECTION_NAME', payload: { id: collectionId, name: newName } });
 };
 
+export const removeCollection = (collectionId: string) => (dispatch: Dispatch) => {
+  dispatch({ type: 'DELETE_COLLECTION', payload: { id: collectionId } });
+}
+
 export const setInitialCards = (cards: Card[]) => (dispatch: Dispatch) => {
   dispatch({ type: 'SET_INITIAL_CARDS', payload: cards });
 };

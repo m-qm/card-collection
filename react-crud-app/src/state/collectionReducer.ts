@@ -45,7 +45,7 @@ export const collectionReducer = (state = initialState, action: AnyAction): Coll
                     ),
                     initialCards: updatedInitialCards
                 };
-            } else {
+            }
                 const newCollection: Collection = {
                     id: action.payload.collectionId,
                     name: `Collection ${action.payload.collectionId}`,
@@ -56,7 +56,6 @@ export const collectionReducer = (state = initialState, action: AnyAction): Coll
                     collections: [...state.collections, newCollection],
                     initialCards: updatedInitialCards
                 };
-            }
         }
         case 'DELETE_CARD': {
             const cardToRemove = state.collections

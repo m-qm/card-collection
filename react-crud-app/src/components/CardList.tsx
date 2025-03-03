@@ -46,7 +46,8 @@ const CardList: React.FC = () => {
     return (
       <div>
         Error fetching cards
-        <button onClick={() => refetch()} className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700">
+        <button type="button"
+          onClick={() => refetch()} className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700">
           Retry
         </button>
       </div>

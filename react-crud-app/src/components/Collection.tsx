@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCard, deleteCard, updateCollectionName } from '../state/actions';
+import { addCard, deleteCard, removeCollection, updateCollectionName } from '../state/actions';
 import { RootState, AppDispatch } from '../state/store';
 import Card from './Card';
 import type { Card as CardType } from '../types';
@@ -25,6 +25,10 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
 
   const handleUpdateCollectionName = (newName: string) => {
     dispatch(updateCollectionName(collectionId, newName));
+  };
+
+  const handleRemoveCollection = () => {
+    dispatch(removeCollection(collectionId));
   };
 
   if (!collection) {
@@ -56,6 +60,13 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
           />
         ))}
       </div>
+      <button
+        type="button"
+        onClick={handleRemoveCollection}
+        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+      >
+        Remove Collection
+      </button>
     </div>
   );
 };
