@@ -34,7 +34,7 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
   console.log('Current collection state:', collection);
 
   return (
-    <div className="collection p-6 border rounded-lg shadow-lg bg-white">
+    <div className="collection p-6 border rounded-lg shadow-lg bg-white mb-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold text-gray-800">{collection.name}</h2>
         <button
@@ -45,7 +45,7 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
           Update Name
         </button>
       </div>
-      <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-4">
         {collection.cards.map((card: CardType) => (
           <Card
             key={card.id}

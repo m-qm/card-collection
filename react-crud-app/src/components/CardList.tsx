@@ -57,7 +57,7 @@ const CardList: React.FC = () => {
     <div>
       {isFetching && <div>Updating...</div>}
       <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {initialCards.slice(0, 10).map((card: CardType) => (
+        {initialCards.map((card: CardType) => (
           <Card
             key={card.id}
             card={card}
