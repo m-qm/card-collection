@@ -8,7 +8,7 @@ import { Collection as CollectionType } from 'types';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const collections = useSelector((state: RootState) => state.collections);
+  const collections = useSelector((state: RootState) => state.collectionState.collections);
 
   const handleAddCollection = () => {
     const newCollectionId = prompt('Enter new collection ID:');

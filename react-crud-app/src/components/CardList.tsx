@@ -1,14 +1,22 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { fetchCards } from '../services/api';
-import { addCard, deleteCard, updateCollectionName } from '../state/actions';
+import { addCard, deleteCard, setInitialCards } from '../state/actions';
 import Card from './Card';
 import type { Card as CardType } from '../types';
+import { RootState } from '../state/store';
 
 const CardList: React.FC = () => {
   const dispatch = useDispatch();
+  const initialCards = useSelector((state: RootState) => state.collectionState.initialCards);
   const { data: cards, error, isLoading } = useQuery('cards', fetchCards);
+
+  useEffect(() => {
+    if (cards) {
+      dispatch(setInitialCards(cards));
+    }
+  }, [cards, dispatch]);
 
   const handleAddToCollection = (card: CardType) => {
     const collectionId = prompt('Enter collection ID to add this card to:');
@@ -25,13 +33,6 @@ const CardList: React.FC = () => {
     }
   };
 
-  const handleUpdateCollectionName = (newName: string) => {
-    const collectionId = prompt('Enter collection ID to update the name:');
-    if (collectionId) {
-      dispatch(updateCollectionName(collectionId, newName));
-    }
-  };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -42,7 +43,7 @@ const CardList: React.FC = () => {
 
   return (
     <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {cards.slice(0, 10).map((card: CardType) => (
+      {initialCards.slice(0, 10).map((card: CardType) => (
         <Card
           key={card.id}
           card={card}

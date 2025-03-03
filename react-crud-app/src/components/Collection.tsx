@@ -11,7 +11,7 @@ interface CollectionProps {
 
 const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const collection = useSelector((state: RootState) => state.collections.find(c => c.id === collectionId));
+  const collection = useSelector((state: RootState) => state.collectionState.collections.find(c => c.id === collectionId));
   console.log('Current collection:', collection);
 
   const handleAddToCollection = (card: CardType) => {
