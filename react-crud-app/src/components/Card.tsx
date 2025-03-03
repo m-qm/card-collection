@@ -9,12 +9,21 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ card, onAddToCollection, onDelete, isInCollection }) => {
+  const placeholderImageUrl = 'https://placehold.co/233x310?text=No+Image+Available';
+
   return (
     <div className="card p-4 border rounded shadow">
       <h3 className="text-lg font-semibold mb-2">{card.name}</h3>
-      <img src={card.imageUrl} alt={card.name} className="mb-2" />
+      <img
+        src={card.imageUrl ?? placeholderImageUrl}
+        alt={card.name}
+        className="mb-2"
+        onError={(e) => {
+          e.currentTarget.src = placeholderImageUrl;
+        }}
+      />
       <p className="mb-2">{card.description}</p>
-      {onAddToCollection && (
+      {onAddToCollection && !isInCollection && (
         <button
           type="button"
           onClick={() => onAddToCollection(card)}

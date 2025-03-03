@@ -28,22 +28,24 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
   };
 
   if (!collection) {
-    return <div>Collection not found</div>;
+    return <div className="text-center text-red-500">Collection not found</div>;
   }
 
   console.log('Current collection state:', collection);
 
   return (
-    <div className="collection p-4 border rounded shadow">
-      <h2 className="text-xl font-semibold mb-2">{collection.name}</h2>
-      <button
-        type="button"
-        onClick={() => handleUpdateCollectionName(prompt('New collection name') || '')}
-        className="mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-      >
-        Update Collection Name
-      </button>
-      <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="collection p-6 border rounded-lg shadow-lg bg-white">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold text-gray-800">{collection.name}</h2>
+        <button
+          type="button"
+          onClick={() => handleUpdateCollectionName(prompt('New collection name') || '')}
+          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+        >
+          Update Name
+        </button>
+      </div>
+      <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {collection.cards.map((card: CardType) => (
           <Card
             key={card.id}

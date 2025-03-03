@@ -10,7 +10,12 @@ import { RootState } from '../state/store';
 const CardList: React.FC = () => {
   const dispatch = useDispatch();
   const initialCards = useSelector((state: RootState) => state.collectionState.initialCards);
-  const { data: cards, error, isLoading } = useQuery('cards', fetchCards);
+
+  const { data: cards, error, isLoading, isFetching, refetch } = useQuery('cards', fetchCards, {
+    cacheTime: 1000 * 60 * 5, // Cache data for 5 minutes
+    retry: 3, // Retry failed requests up to 3 times
+    refetchOnWindowFocus: false, // Disable refetching on window focus
+  });
 
   useEffect(() => {
     if (cards) {
@@ -38,20 +43,30 @@ const CardList: React.FC = () => {
   }
 
   if (error) {
-    return <div>Error fetching cards</div>;
+    return (
+      <div>
+        Error fetching cards
+        <button onClick={() => refetch()} className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700">
+          Retry
+        </button>
+      </div>
+    );
   }
 
   return (
-    <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {initialCards.slice(0, 10).map((card: CardType) => (
-        <Card
-          key={card.id}
-          card={card}
-          onAddToCollection={handleAddToCollection}
-          onDelete={handleDeleteCard}
-          isInCollection={false}
-        />
-      ))}
+    <div>
+      {isFetching && <div>Updating...</div>}
+      <div className="card-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {initialCards.slice(0, 10).map((card: CardType) => (
+          <Card
+            key={card.id}
+            card={card}
+            onAddToCollection={handleAddToCollection}
+            onDelete={handleDeleteCard}
+            isInCollection={false}
+          />
+        ))}
+      </div>
     </div>
   );
 };
