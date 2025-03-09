@@ -12,8 +12,8 @@ const Card: React.FC<CardProps> = ({ card, onAddToCollection, onDelete, isInColl
   const placeholderImageUrl = 'https://placehold.co/233x310?text=No+Image+Available';
 
   return (
-    <div className="card p-4 border rounded shadow">
-      <h3 className="text-lg font-semibold mb-2">{card.name}</h3>
+    <section className="card p-4 border rounded shadow" aria-labelledby={`card-title-${card.id}`}>
+      <h3 id={`card-title-${card.id}`} className="text-lg font-semibold mb-2">{card.name}</h3>
       <img
         src={card.imageUrl ?? placeholderImageUrl}
         alt={card.name}
@@ -28,6 +28,7 @@ const Card: React.FC<CardProps> = ({ card, onAddToCollection, onDelete, isInColl
           type="button"
           onClick={() => onAddToCollection(card)}
           className="mr-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+          aria-label={`Add ${card.name} to Collection`}
         >
           Add to Collection
         </button>
@@ -37,11 +38,12 @@ const Card: React.FC<CardProps> = ({ card, onAddToCollection, onDelete, isInColl
           type="button"
           onClick={() => onDelete(card)}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+          aria-label={`Delete ${card.name} from Collection`}
         >
           Delete
         </button>
       )}
-    </div>
+    </section>
   );
 };
 

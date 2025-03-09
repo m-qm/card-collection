@@ -27,7 +27,6 @@ const CardList: React.FC = () => {
   const handleAddToCollection = (card: CardType) => {
     const collectionId = prompt('Enter collection ID to add this card to:');
     if (collectionId) {
-      console.log('Adding card to collection:', card);
       dispatch(addCard(collectionId, card));
     }
   };

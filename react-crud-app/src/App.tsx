@@ -16,11 +16,11 @@ const App: React.FC = () => {
 
   const handleAddCollection = (event: React.FormEvent) => {
     event.preventDefault();
-    if (newCollectionId) {
+    if (newCollectionId && !collections.find((c) => c.id === newCollectionId)) {
       dispatch(
         addCollection({
           id: newCollectionId,
-          name: `Collection ${newCollectionId}`,
+          name: `${newCollectionId}`,
           cards: [],
         }),
       );

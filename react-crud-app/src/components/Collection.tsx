@@ -32,7 +32,7 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
   };
 
   if (!collection) {
-    return <div className="text-center text-red-500">Collection not found</div>;
+    return <div className="text-center text-red-500" role="alert">Collection not found</div>;
   }
 
   console.log('Current collection state:', collection);
@@ -45,6 +45,7 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
           type="button"
           onClick={() => handleUpdateCollectionName(prompt('New collection name') || '')}
           className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+          aria-label="Update Collection Name"
         >
           Update Name
         </button>
@@ -64,6 +65,7 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
         type="button"
         onClick={handleRemoveCollection}
         className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+        aria-label="Remove Collection"
       >
         Remove Collection
       </button>
