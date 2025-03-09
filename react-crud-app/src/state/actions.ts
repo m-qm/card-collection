@@ -1,5 +1,5 @@
-import { Dispatch } from 'redux';
-import { Card, Collection } from '../types';
+import type { Dispatch } from 'redux';
+import type { Card, Collection } from '../types';
 
 export const addCard = (collectionId: string, card: Card) => (dispatch: Dispatch) => {
   dispatch({ type: 'ADD_CARD', payload: { collectionId, card } });

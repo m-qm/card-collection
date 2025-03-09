@@ -1,7 +1,7 @@
-import React from 'react';
+import type React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard, deleteCard, removeCollection, updateCollectionName } from '../state/actions';
-import { RootState, AppDispatch } from '../state/store';
+import type { RootState, AppDispatch } from '../state/store';
 import Card from './Card';
 import type { Card as CardType } from '../types';
 

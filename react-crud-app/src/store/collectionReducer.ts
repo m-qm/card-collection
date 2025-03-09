@@ -6,13 +6,8 @@ interface CollectionState {
     initialCards: Card[];
 }
 
-const initialState: CollectionState = {
-    collections: [],
-    initialCards: [] // Add your initial cards here if needed
-};
 
-// biome-ignore lint/style/useDefaultParameterLast: <explanation>
-export const collectionReducer = (state = initialState, action: AnyAction): CollectionState => {
+export const collectionReducer = (state: CollectionState, action: AnyAction): CollectionState => {
     switch (action.type) {
         case 'ADD_COLLECTION':
             return {
@@ -47,16 +42,16 @@ export const collectionReducer = (state = initialState, action: AnyAction): Coll
                     initialCards: updatedInitialCards
                 };
             }
-                const newCollection: Collection = {
-                    id: action.payload.collectionId,
-                    name: `Collection ${action.payload.collectionId}`,
-                    cards: [action.payload.card]
-                };
-                return {
-                    ...state,
-                    collections: [...state.collections, newCollection],
-                    initialCards: updatedInitialCards
-                };
+            const newCollection: Collection = {
+                id: action.payload.collectionId,
+                name: `Collection ${action.payload.collectionId}`,
+                cards: [action.payload.card]
+            };
+            return {
+                ...state,
+                collections: [...state.collections, newCollection],
+                initialCards: updatedInitialCards
+            };
         }
         case 'DELETE_CARD': {
             const cardToRemove = state.collections
@@ -77,6 +72,12 @@ export const collectionReducer = (state = initialState, action: AnyAction): Coll
             return {
                 ...state,
                 initialCards: action.payload
+            };
+        case 'persist/PERSIST':
+            // Handle the persist action without non-serializable values
+            return {
+                ...state,
+                // No changes needed for state, just ensuring action is handled
             };
         default:
             return state;

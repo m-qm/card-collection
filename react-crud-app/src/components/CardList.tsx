@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import type React from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { fetchCards } from '../services/api';
 import { addCard, deleteCard, setInitialCards } from '../state/actions';
 import Card from './Card';
 import type { Card as CardType } from '../types';
-import { RootState } from '../state/store';
+import type { RootState } from '../state/store';
 
 const CardList: React.FC = () => {
   const dispatch = useDispatch();
-  const initialCards = useSelector((state: RootState) => state.collectionState.initialCards);
+  const initialCards = useSelector((state: RootState) => state.collectionState.initialCards || []);
 
   const { data: cards, error, isLoading, isFetching, refetch } = useQuery('cards', fetchCards, {
     cacheTime: 1000 * 60 * 5, // Cache data for 5 minutes
