@@ -12,10 +12,8 @@ interface CollectionProps {
 const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
   const dispatch = useDispatch<AppDispatch>();
   const collection = useSelector((state: RootState) => state.collectionState.collections.find(c => c.id === collectionId));
-  console.log('Current collection:', collection);
 
   const handleAddToCollection = (card: CardType) => {
-    console.log('Adding card to collection:', card);
     dispatch(addCard(collectionId, card));
   };
 
@@ -32,10 +30,8 @@ const Collection: React.FC<CollectionProps> = ({ collectionId }) => {
   };
 
   if (!collection) {
-    return <div className="text-center text-red-500" role="alert">Collection not found</div>;
+    return <div className="text-center text-red-500">Collection not found</div>;
   }
-
-  console.log('Current collection state:', collection);
 
   return (
     <div className="collection p-6 border rounded-lg shadow-lg bg-white mb-4">

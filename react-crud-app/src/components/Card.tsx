@@ -1,4 +1,4 @@
-import type React from 'react';
+import React from 'react';
 import type { Card as CardType } from '../types';
 
 interface CardProps {
@@ -13,7 +13,7 @@ const Card: React.FC<CardProps> = ({ card, onAddToCollection, onDelete, isInColl
 
   return (
     <section className="card p-4 border rounded shadow" aria-labelledby={`card-title-${card.id}`}>
-      <h3 id={`card-title-${card.id}`} className="text-lg font-semibold mb-2">{card.name}</h3>
+      <h1 id={`card-title-${card.id}`} className="text-lg font-semibold mb-2">{card.name}</h1>
       <img
         src={card.imageUrl ?? placeholderImageUrl}
         alt={card.name}

@@ -6,7 +6,6 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
-console.log(store.getState());
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export default store;

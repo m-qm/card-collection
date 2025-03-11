@@ -1,4 +1,4 @@
-import type React from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
@@ -11,6 +11,8 @@ import type { RootState } from '../state/store';
 const CardList: React.FC = () => {
   const dispatch = useDispatch();
   const initialCards = useSelector((state: RootState) => state.collectionState.initialCards || []);
+  const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
+  const [collectionId, setCollectionId] = useState<string>('');
 
   const { data: cards, error, isLoading, isFetching, refetch } = useQuery('cards', fetchCards, {
     cacheTime: 1000 * 60 * 5, // Cache data for 5 minutes
@@ -31,6 +33,16 @@ const CardList: React.FC = () => {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (selectedCard) {
+      dispatch(addCard(collectionId, selectedCard));
+      setSelectedCard(null);
+      setCollectionId('');
+    }
+  }
+  
+
   const handleDeleteCard = (card: CardType) => {
     const collectionId = prompt('Enter collection ID to delete this card from:');
     if (collectionId) {
@@ -44,10 +56,12 @@ const CardList: React.FC = () => {
 
   if (error) {
     return (
-      <div>
+      <div role="alert">
         Error fetching cards
         <button type="button"
-          onClick={() => refetch()} className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700">
+          onClick={() => refetch()} className="ml-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+          aria-label="Retry fetching cards"
+        >
           Retry
         </button>
       </div>
@@ -68,6 +82,27 @@ const CardList: React.FC = () => {
           />
         ))}
       </div>
+      {selectedCard && (
+        <form onSubmit={handleSubmit} className="mt-4">
+          <label htmlFor="collectionId" className="block text-sm font-medium text-gray-700">
+            Enter collection ID to add "{selectedCard.name}" to:
+          </label>
+          <input
+            type="text"
+            id="collectionId"
+            value={collectionId}
+            onChange={(e) => setCollectionId(e.target.value)}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            required
+          />
+          <button
+            type="submit"
+            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+          >
+            Add to Collection
+          </button>
+        </form>
+      )}
     </div>
   );
 };
